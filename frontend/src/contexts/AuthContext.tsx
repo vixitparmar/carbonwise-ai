@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import axios from 'axios';
 import api from '../services/api';
 
 interface User {
@@ -29,30 +30,61 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    const storedUser = localStorage.getItem('user');
-
-    if (storedToken && storedUser) {
-      setToken(storedToken);
-      setUser(JSON.parse(storedUser));
+    const checkBackendAndInit = async () => {
+      let isBackendRunning = false;
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
       
-      // Fetch fresh profile details from API
-      api.get('/auth/profile')
-        .then((res) => {
-          const freshUser: User = res.data;
-          setUser(freshUser);
-          localStorage.setItem('user', JSON.stringify(freshUser));
-        })
-        .catch(() => {
-          // Token expired or server unreachable
+      try {
+        await axios.get(`${apiUrl}/health`, { timeout: 3000 });
+        isBackendRunning = true;
+      } catch (err) {
+        isBackendRunning = false;
+        console.warn('📡 Backend is offline. Bypassing login to show mock dashboard directly.');
+      }
+
+      const storedToken = localStorage.getItem('token');
+      const storedUser = localStorage.getItem('user');
+
+      if (isBackendRunning) {
+        if (storedToken && storedUser && storedToken !== 'dummy-jwt-token') {
+          setToken(storedToken);
+          setUser(JSON.parse(storedUser));
+          
+          api.get('/auth/profile')
+            .then((res) => {
+              const freshUser: User = res.data;
+              setUser(freshUser);
+              localStorage.setItem('user', JSON.stringify(freshUser));
+            })
+            .catch(() => {
+              logout();
+            })
+            .finally(() => {
+              setLoading(false);
+            });
+        } else {
           logout();
-        })
-        .finally(() => {
           setLoading(false);
-        });
-    } else {
-      setLoading(false);
-    }
+        }
+      } else {
+        const offlineUser: User = {
+          id: 'dummy-id',
+          name: 'Vixit (Offline)',
+          email: 'guest@example.com',
+          carbonGoal: 500,
+          greenCoins: 120,
+          streak: 5,
+          badges: ['Eco Warrior', 'Streak Star']
+        };
+        setToken('dummy-jwt-token');
+        setUser(offlineUser);
+        localStorage.setItem('token', 'dummy-jwt-token');
+        localStorage.setItem('user', JSON.stringify(offlineUser));
+        setLoading(false);
+      }
+    };
+
+    checkBackendAndInit();
   }, []);
 
   const login = (newToken: string, userData: User) => {

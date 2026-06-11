@@ -69,6 +69,13 @@ CarbonWise AI bridges the gap between awareness and action:
 
 ---
 
+## 📡 Offline Mode & Resiliency
+CarbonWise AI is designed to run seamlessly even when the backend API server is down or unreachable:
+* **Online Mode**: When the backend API is online and running, the login and registration interfaces are fully active, requiring the user to authenticate through standard security endpoints.
+* **Offline Fallback**: If the backend server is unreachable or offline, the login screen is bypassed, and the application directly displays the interactive Dashboard with simulated/mock offline datasets. All data mutations are gracefully handled via local mock models to allow zero-configuration UI testing and evaluation.
+
+---
+
 ## 📂 Folder Structure
 ```
 CarbonFootprint/
