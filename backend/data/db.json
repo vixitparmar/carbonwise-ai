@@ -1,0 +1,79 @@
+{
+  "users": [
+    {
+      "name": "Vixit",
+      "email": "vixitparmar11111@gmail.com",
+      "password": "$2a$10$cpAfCx8a7bWWYB7Q6mc50.wBZTcUGH8a3GI8WxtiSls.mn5dTMEOO",
+      "carbonGoal": 500,
+      "greenCoins": 355,
+      "streak": 1,
+      "lastLoggedDate": "2026-06-11",
+      "badges": [
+        "ocr_expert",
+        "challenge_ch_1"
+      ],
+      "_id": "use_rraetf7be",
+      "id": "use_rraetf7be",
+      "createdAt": "2026-06-11T16:54:12.468Z",
+      "updatedAt": "2026-06-11T17:01:43.562Z"
+    }
+  ],
+  "activities": [
+    {
+      "userId": "use_rraetf7be",
+      "date": "2026-06-11",
+      "type": "electricity",
+      "value": 366,
+      "carbonEmissions": 164.7,
+      "details": {
+        "source": "grid",
+        "provider": "City Power Grid Inc.",
+        "scanned": true
+      },
+      "_id": "act_m4tm93axa",
+      "id": "act_m4tm93axa",
+      "createdAt": "2026-06-11T16:56:36.650Z"
+    },
+    {
+      "userId": "use_rraetf7be",
+      "date": "2026-06-11",
+      "type": "travel",
+      "value": 100,
+      "carbonEmissions": 11,
+      "details": {
+        "mode": "motorcycle"
+      },
+      "_id": "act_5mjhcdx29",
+      "id": "act_5mjhcdx29",
+      "createdAt": "2026-06-11T17:01:43.561Z"
+    }
+  ],
+  "goals": [],
+  "chatMessages": [],
+  "challenges": [
+    {
+      "_id": "ch_1",
+      "title": "Meatless Week",
+      "description": "Avoid meat products for 7 days straight",
+      "coinsReward": 150,
+      "category": "food",
+      "difficulty": "Medium"
+    },
+    {
+      "_id": "ch_2",
+      "title": "Active Commuter",
+      "description": "Walk or cycle to work/school 3 times this week",
+      "coinsReward": 100,
+      "category": "travel",
+      "difficulty": "Easy"
+    },
+    {
+      "_id": "ch_3",
+      "title": "Power Saver",
+      "description": "Keep your household energy consumption below 5 kWh per day",
+      "coinsReward": 200,
+      "category": "electricity",
+      "difficulty": "Hard"
+    }
+  ]
+}
