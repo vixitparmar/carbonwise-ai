@@ -29,6 +29,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const login = (newToken: string, userData: User) => {
+    setToken(newToken);
+    setUser(userData);
+    localStorage.setItem('token', newToken);
+    localStorage.setItem('user', JSON.stringify(userData));
+  };
+
+  const logout = () => {
+    setToken(null);
+    setUser(null);
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  };
+
   useEffect(() => {
     const checkBackendAndInit = async () => {
       let isBackendRunning = false;
@@ -38,7 +52,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         await axios.get(`${apiUrl}/health`, { timeout: 3000 });
         isBackendRunning = true;
       } catch (err) {
-        isBackendRunning = false;
         console.warn('📡 Backend is offline. Bypassing login to show mock dashboard directly.');
       }
 
@@ -86,20 +99,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     checkBackendAndInit();
   }, []);
-
-  const login = (newToken: string, userData: User) => {
-    setToken(newToken);
-    setUser(userData);
-    localStorage.setItem('token', newToken);
-    localStorage.setItem('user', JSON.stringify(userData));
-  };
-
-  const logout = () => {
-    setToken(null);
-    setUser(null);
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-  };
 
   const updateUser = (userData: Partial<User>) => {
     setUser((prev) => {
