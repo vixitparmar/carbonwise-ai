@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import api from '../services/api';
 import { useAuth } from '../contexts/AuthContext';
@@ -13,16 +13,11 @@ import {
   Activity,
   Plus,
   ArrowRight,
-  Sparkles,
-  Info
+  Sparkles
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import {
   ResponsiveContainer,
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
   Tooltip,
   PieChart,
   Pie,
@@ -272,7 +267,7 @@ export const Dashboard: React.FC = () => {
                     paddingAngle={3}
                     dataKey="value"
                   >
-                    {pieData.map((entry, index) => (
+                    {pieData.map((_, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>

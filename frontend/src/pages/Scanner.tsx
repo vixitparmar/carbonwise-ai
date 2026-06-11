@@ -10,8 +10,6 @@ import {
   Coins,
   CheckCircle2,
   AlertCircle,
-  FileCheck2,
-  Table,
   Leaf
 } from 'lucide-react';
 

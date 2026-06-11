@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import api from '../services/api';
 import { motion } from 'framer-motion';
-import { Sparkles, Download, Leaf, Calendar, ArrowUpRight, CheckSquare, Zap, AlertCircle } from 'lucide-react';
+import { Sparkles, Download, Calendar, CheckSquare, Zap, AlertCircle } from 'lucide-react';
 import type { CoachingReport } from '../types';
 
 const containerVariants = {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Leaf, Sparkles, Scan, Award, HelpCircle, ArrowRight, CheckCircle2, Shield, Flame, Activity } from 'lucide-react';
+import { Leaf, Sparkles, Scan, Award, HelpCircle, ArrowRight, CheckCircle2, Activity } from 'lucide-react';
 
 const heroContainerVariants = {
   hidden: { opacity: 0 },

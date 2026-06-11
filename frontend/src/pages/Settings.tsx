@@ -6,7 +6,6 @@ import {
   Settings as SettingsIcon,
   User,
   Lock,
-  Leaf,
   CheckCircle,
   AlertCircle
 } from 'lucide-react';

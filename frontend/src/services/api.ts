@@ -25,7 +25,7 @@ api.interceptors.request.use(
 );
 
 // Dummy fallback data generator for offline/closed API server
-const getMockData = (url: string, method: string, data?: any) => {
+const getMockData = (url: string, method: string, data?: any): any => {
   const cleanUrl = url.replace(API_URL, '').split('?')[0];
   console.warn(`📡 [API OFFLINE FALLBACK] Serving mock data for: ${method.toUpperCase()} ${cleanUrl}`);
 
@@ -184,24 +184,24 @@ const getMockData = (url: string, method: string, data?: any) => {
 
     // calculate today's emissions
     const todayStr = new Date().toISOString().split('T')[0];
-    const todayActivities = activities.filter(a => a.date === todayStr);
-    const todayCarbon = parseFloat(todayActivities.reduce((sum, a) => sum + (a.carbonEmissions || 0), 0).toFixed(1));
+    const todayActivities = activities.filter((a: any) => a.date === todayStr);
+    const todayCarbon = parseFloat(todayActivities.reduce((sum: number, a: any) => sum + (a.carbonEmissions || 0), 0).toFixed(1));
 
     // calculate weekly emissions (past 7 days)
     const sevenDaysAgo = new Date();
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-    const weeklyActivities = activities.filter(a => new Date(a.date) >= sevenDaysAgo);
-    const weeklyCarbon = parseFloat(weeklyActivities.reduce((sum, a) => sum + (a.carbonEmissions || 0), 0).toFixed(1));
+    const weeklyActivities = activities.filter((a: any) => new Date(a.date) >= sevenDaysAgo);
+    const weeklyCarbon = parseFloat(weeklyActivities.reduce((sum: number, a: any) => sum + (a.carbonEmissions || 0), 0).toFixed(1));
 
     // calculate monthly emissions (current month)
     const now = new Date();
     const currentMonth = now.getMonth();
     const currentYear = now.getFullYear();
-    const monthlyActivities = activities.filter(a => {
+    const monthlyActivities = activities.filter((a: any) => {
       const d = new Date(a.date);
       return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
     });
-    const monthlyCarbon = parseFloat(monthlyActivities.reduce((sum, a) => sum + (a.carbonEmissions || 0), 0).toFixed(1));
+    const monthlyCarbon = parseFloat(monthlyActivities.reduce((sum: number, a: any) => sum + (a.carbonEmissions || 0), 0).toFixed(1));
 
     // category breakdown
     const breakdown: Record<string, number> = {
@@ -214,7 +214,7 @@ const getMockData = (url: string, method: string, data?: any) => {
       flight: 0,
       public_transport: 0
     };
-    activities.forEach(a => {
+    activities.forEach((a: any) => {
       const cat = a.type || 'travel';
       if (breakdown[cat] !== undefined) {
         breakdown[cat] += a.carbonEmissions || 0;
@@ -253,7 +253,7 @@ const getMockData = (url: string, method: string, data?: any) => {
     if (method.toLowerCase() === 'delete') {
       const parts = cleanUrl.split('/');
       const id = parts[parts.length - 1];
-      const filtered = activities.filter(a => a._id !== id && a.id !== id);
+      const filtered = activities.filter((a: any) => a._id !== id && a.id !== id);
       saveActivities(filtered);
       return { success: true };
     }
@@ -326,17 +326,17 @@ const getMockData = (url: string, method: string, data?: any) => {
     }
 
     // For GET: recalculate currentEmissions for all active goals
-    const updatedGoals = goals.map(g => {
+    const updatedGoals = goals.map((g: any) => {
       const start = new Date(g.startDate);
       const end = new Date(g.endDate);
-      const goalActivities = activities.filter(a => {
+      const goalActivities = activities.filter((a: any) => {
         const actDate = new Date(a.date);
         const inRange = actDate >= start && actDate <= end;
         if (!inRange) return false;
         if (g.category === 'all' || !g.category) return true;
         return a.type === g.category;
       });
-      const currentEmissions = parseFloat(goalActivities.reduce((sum, a) => sum + (a.carbonEmissions || 0), 0).toFixed(1));
+      const currentEmissions = parseFloat(goalActivities.reduce((sum: number, a: any) => sum + (a.carbonEmissions || 0), 0).toFixed(1));
       const status = currentEmissions > g.targetEmissions ? 'failed' : (new Date() > end ? 'achieved' : 'active');
       return { ...g, currentEmissions, status };
     });
@@ -352,15 +352,15 @@ const getMockData = (url: string, method: string, data?: any) => {
 
   // AI endpoints
   if (cleanUrl.includes('/ai/coach-report')) {
-    const stats = getMockData(API_URL + '/activities/stats', 'GET');
-    const breakdownEntries = Object.entries(stats.breakdown).map(([category, co2]) => {
+    const stats: any = getMockData(API_URL + '/activities/stats', 'GET');
+    const breakdownEntries: any = Object.entries(stats.breakdown).map(([category, co2]) => {
       const total = stats.metrics.monthlyCarbon || 1;
       return {
         category,
         percentage: Math.round(((co2 as number) / total) * 100),
         explanation: `${category} emissions contribute ${co2} kg CO2 to your monthly total.`
       };
-    }).sort((a, b) => b.percentage - a.percentage);
+    }).sort((a: any, b: any) => b.percentage - a.percentage);
 
     return {
       mainSources: breakdownEntries.slice(0, 3),

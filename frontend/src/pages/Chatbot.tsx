@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'framer-motion';
 import api from '../services/api';
-import { Send, Trash2, Sparkles, User, MessageSquare, Bot, AlertCircle } from 'lucide-react';
+import { Send, Trash2, User, Bot } from 'lucide-react';
 import type { ChatMessage } from '../types';
 
 
@@ -19,7 +19,7 @@ export const Chatbot: React.FC = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Fetch history
-  const { data: messages, isLoading, error } = useQuery<ChatMessage[]>({
+  const { data: messages, isLoading } = useQuery<ChatMessage[]>({
     queryKey: ['chatHistory'],
     queryFn: async () => {
       const res = await api.get('/ai/chat/history');
@@ -49,12 +49,12 @@ export const Chatbot: React.FC = () => {
       queryClient.setQueryData<ChatMessage[]>(['chatHistory'], [...previousMessages, optimisticMsg]);
       return { previousMessages };
     },
-    onError: (err, newMsg, context) => {
+    onError: (_err, _newMsg, context) => {
       if (context) {
         queryClient.setQueryData(['chatHistory'], context.previousMessages);
       }
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['chatHistory'] });
     }
   });

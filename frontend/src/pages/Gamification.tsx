@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import api from '../services/api';
 import { useAuth } from '../contexts/AuthContext';
 import {
@@ -8,13 +8,10 @@ import {
   Coins,
   Zap,
   CheckCircle,
-  Clock,
   Sparkles,
   Trophy,
   AlertCircle,
-  Check,
-  Shield,
-  HelpCircle
+  Check
 } from 'lucide-react';
 import type { Challenge, BadgeInfo } from '../types';
 
@@ -26,7 +23,7 @@ const containerVariants = {
       staggerChildren: 0.04
     }
   }
-};
+} as const;
 
 const itemVariants = {
   hidden: { opacity: 0, y: 12 },
@@ -39,7 +36,7 @@ const itemVariants = {
       damping: 15
     }
   }
-};
+} as const;
 
 export const Gamification: React.FC = () => {
   const queryClient = useQueryClient();

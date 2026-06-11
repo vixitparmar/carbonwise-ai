@@ -5,10 +5,8 @@ import api from '../services/api';
 import {
   TrendingUp,
   BarChart3,
-  Calendar,
   Filter,
   Leaf,
-  Info,
   Car,
   Utensils,
   Lightbulb,
@@ -25,8 +23,7 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  CartesianGrid,
-  Legend
+  CartesianGrid
 } from 'recharts';
 import type { Activity, DashboardStats } from '../types';
 

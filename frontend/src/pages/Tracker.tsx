@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import api from '../services/api';
 import {
   Leaf,
-  Plus,
   Trash2,
   Car,
   Utensils,
@@ -125,7 +124,7 @@ export const Tracker: React.FC = () => {
       const res = await api.post('/activities', payload);
       return res.data;
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       setSuccessMessage('Activity logged successfully! Green Coins credited.');
       setErrorMessage(null);
       queryClient.invalidateQueries({ queryKey: ['activitiesList'] });
