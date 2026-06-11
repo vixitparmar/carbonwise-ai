@@ -80,12 +80,13 @@ export const Register: React.FC = () => {
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+            <label htmlFor="name" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
               Full Name
             </label>
             <div className="relative">
               <User className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-400" />
               <input
+                id="name"
                 type="text"
                 placeholder="John Doe"
                 {...register('name', { required: 'Name is required' })}
@@ -98,12 +99,13 @@ export const Register: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+            <label htmlFor="email" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
               Email Address
             </label>
             <div className="relative">
               <Mail className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-400" />
               <input
+                id="email"
                 type="email"
                 placeholder="you@example.com"
                 {...register('email', { required: 'Email is required' })}
@@ -116,12 +118,13 @@ export const Register: React.FC = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+            <label htmlFor="password" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
               Password
             </label>
             <div className="relative">
               <Lock className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-400" />
               <input
+                id="password"
                 type="password"
                 placeholder="••••••••"
                 {...register('password', { required: 'Password is required' })}

@@ -140,8 +140,9 @@ export const Settings: React.FC = () => {
 
             <form onSubmit={handleProfileSubmit(onUpdateProfile)} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Full Name</label>
+                <label htmlFor="fullName" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Full Name</label>
                 <input
+                  id="fullName"
                   type="text"
                   {...registerProfile('name', { required: true })}
                   className="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
@@ -149,8 +150,9 @@ export const Settings: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Monthly Carbon Target Goal (kg CO₂)</label>
+                <label htmlFor="carbonGoal" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Monthly Carbon Target Goal (kg CO₂)</label>
                 <input
+                  id="carbonGoal"
                   type="number"
                   {...registerProfile('carbonGoal', { required: true, min: 10 })}
                   className="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
@@ -190,8 +192,9 @@ export const Settings: React.FC = () => {
 
             <form onSubmit={handlePasswordSubmit(onChangePassword)} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Current Password</label>
+                <label htmlFor="currentPassword" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Current Password</label>
                 <input
+                  id="currentPassword"
                   type="password"
                   placeholder="••••••••"
                   {...registerPassword('currentPassword', { required: true })}
@@ -200,8 +203,9 @@ export const Settings: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">New Password</label>
+                <label htmlFor="newPassword" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">New Password</label>
                 <input
+                  id="newPassword"
                   type="password"
                   placeholder="••••••••"
                   {...registerPassword('newPassword', { required: true, minLength: 6 })}
@@ -210,8 +214,9 @@ export const Settings: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Confirm New Password</label>
+                <label htmlFor="confirmPassword" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Confirm New Password</label>
                 <input
+                  id="confirmPassword"
                   type="password"
                   placeholder="••••••••"
                   {...registerPassword('confirmPassword', { required: true })}

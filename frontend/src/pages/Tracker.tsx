@@ -242,12 +242,13 @@ export const Tracker: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Date Input */}
               <div>
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+                <label htmlFor="activityDate" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
                   Date of Activity
                 </label>
                 <div className="relative">
                   <Calendar className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
                   <input
+                    id="activityDate"
                     type="date"
                     {...register('date', { required: true })}
                     className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
@@ -257,7 +258,7 @@ export const Tracker: React.FC = () => {
 
               {/* Quantity Value Input */}
               <div>
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+                <label htmlFor="activityValue" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
                   {selectedType === 'travel' || selectedType === 'public_transport' || selectedType === 'cycling' || selectedType === 'walking'
                     ? 'Distance (Kilometers)'
                     : selectedType === 'food'
@@ -271,6 +272,7 @@ export const Tracker: React.FC = () => {
                     : 'Quantity (Kilograms)'}
                 </label>
                 <input
+                  id="activityValue"
                   type="number"
                   step="any"
                   {...register('value', { required: true, min: 0.0001 })}
@@ -282,10 +284,11 @@ export const Tracker: React.FC = () => {
             {/* DYNAMIC FIELD SELECTIONS */}
             {selectedType === 'travel' && (
               <div>
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+                <label htmlFor="modeSelect" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
                   Vehicle Type / Fuel Type
                 </label>
                 <select
+                  id="modeSelect"
                   {...register('mode')}
                   className="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 >
@@ -300,10 +303,11 @@ export const Tracker: React.FC = () => {
 
             {selectedType === 'public_transport' && (
               <div>
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+                <label htmlFor="transitSelect" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
                   Transit Mode
                 </label>
                 <select
+                  id="transitSelect"
                   {...register('mode')}
                   className="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 >
@@ -316,10 +320,11 @@ export const Tracker: React.FC = () => {
 
             {selectedType === 'flight' && (
               <div>
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+                <label htmlFor="flightSelect" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
                   Flight Classification
                 </label>
                 <select
+                  id="flightSelect"
                   {...register('distance')}
                   className="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 >
@@ -331,10 +336,11 @@ export const Tracker: React.FC = () => {
 
             {selectedType === 'food' && (
               <div>
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+                <label htmlFor="dietSelect" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
                   Diet Type
                 </label>
                 <select
+                  id="dietSelect"
                   {...register('diet')}
                   className="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 >
@@ -349,10 +355,11 @@ export const Tracker: React.FC = () => {
 
             {selectedType === 'electricity' && (
               <div>
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+                <label htmlFor="sourceSelect" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
                   Energy Source
                 </label>
                 <select
+                  id="sourceSelect"
                   {...register('source')}
                   className="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 >
@@ -364,10 +371,11 @@ export const Tracker: React.FC = () => {
 
             {selectedType === 'shopping' && (
               <div>
-                <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
+                <label htmlFor="categorySelect" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
                   Goods Category
                 </label>
                 <select
+                  id="categorySelect"
                   {...register('category')}
                   className="w-full px-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 >

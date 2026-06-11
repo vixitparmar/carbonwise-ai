@@ -259,8 +259,9 @@ export const Landing: React.FC = () => {
               
               <div className="space-y-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Daily Driving (Miles)</label>
+                  <label htmlFor="daily-miles" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Daily Driving (Miles)</label>
                   <input
+                    id="daily-miles"
                     type="number"
                     value={calculatorInput.miles}
                     onChange={(e) => setCalculatorInput({ ...calculatorInput, miles: parseFloat(e.target.value) || 0 })}
@@ -269,8 +270,9 @@ export const Landing: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Daily Power Use (kWh)</label>
+                  <label htmlFor="daily-kwh" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Daily Power Use (kWh)</label>
                   <input
+                    id="daily-kwh"
                     type="number"
                     value={calculatorInput.kwh}
                     onChange={(e) => setCalculatorInput({ ...calculatorInput, kwh: parseFloat(e.target.value) || 0 })}
