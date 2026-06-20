@@ -20,7 +20,7 @@ export const UserRepository = {
     if (useMongo) {
       return await UserModel.findOne({ email }).lean();
     } else {
-      return fileDb.findOne<any>('users', (u) => u.email === email);
+      return await fileDb.findOne<any>('users', (u) => u.email === email);
     }
   },
 
@@ -28,7 +28,7 @@ export const UserRepository = {
     if (useMongo) {
       return await UserModel.findById(id).lean();
     } else {
-      return fileDb.findOne<any>('users', (u) => u._id === id);
+      return await fileDb.findOne<any>('users', (u) => u._id === id);
     }
   },
 
@@ -38,7 +38,7 @@ export const UserRepository = {
       const saved = await user.save();
       return saved.toObject();
     } else {
-      return fileDb.insert<any>('users', userData);
+      return await fileDb.insert<any>('users', userData);
     }
   },
 
@@ -46,7 +46,7 @@ export const UserRepository = {
     if (useMongo) {
       return await UserModel.findByIdAndUpdate(id, { $set: updateData }, { new: true }).lean();
     } else {
-      return fileDb.update<any>('users', id, updateData);
+      return await fileDb.update<any>('users', id, updateData);
     }
   }
 };
@@ -62,7 +62,7 @@ export const ActivityRepository = {
       const saved = await activity.save();
       return saved.toObject();
     } else {
-      return fileDb.insert<any>('activities', data);
+      return await fileDb.insert<any>('activities', data);
     }
   },
 
@@ -70,7 +70,8 @@ export const ActivityRepository = {
     if (useMongo) {
       return await ActivityModel.find({ userId: toId(userId) }).sort({ date: -1 }).lean();
     } else {
-      return fileDb.find<any>('activities', (a) => a.userId === userId).sort(
+      const activities = await fileDb.find<any>('activities', (a) => a.userId === userId);
+      return activities.sort(
         (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
       );
     }
@@ -83,10 +84,11 @@ export const ActivityRepository = {
         date: { $gte: startDate, $lte: endDate }
       }).sort({ date: 1 }).lean();
     } else {
-      return fileDb.find<any>(
+      const activities = await fileDb.find<any>(
         'activities',
         (a) => a.userId === userId && a.date >= startDate && a.date <= endDate
-      ).sort((a, b) => a.date.localeCompare(b.date));
+      );
+      return activities.sort((a, b) => a.date.localeCompare(b.date));
     }
   },
 
@@ -95,9 +97,9 @@ export const ActivityRepository = {
       const res = await ActivityModel.deleteOne({ _id: toId(id), userId: toId(userId) });
       return res.deletedCount > 0;
     } else {
-      const activity = fileDb.findOne<any>('activities', (a) => a._id === id && a.userId === userId);
+      const activity = await fileDb.findOne<any>('activities', (a) => a._id === id && a.userId === userId);
       if (activity) {
-        return fileDb.delete('activities', id);
+        return await fileDb.delete('activities', id);
       }
       return false;
     }
@@ -115,7 +117,7 @@ export const GoalRepository = {
       const saved = await goal.save();
       return saved.toObject();
     } else {
-      return fileDb.insert<any>('goals', data);
+      return await fileDb.insert<any>('goals', data);
     }
   },
 
@@ -123,7 +125,8 @@ export const GoalRepository = {
     if (useMongo) {
       return await GoalModel.find({ userId: toId(userId) }).sort({ endDate: -1 }).lean();
     } else {
-      return fileDb.find<any>('goals', (g) => g.userId === userId).sort(
+      const goals = await fileDb.find<any>('goals', (g) => g.userId === userId);
+      return goals.sort(
         (a, b) => new Date(b.endDate).getTime() - new Date(a.endDate).getTime()
       );
     }
@@ -137,9 +140,9 @@ export const GoalRepository = {
         { new: true }
       ).lean();
     } else {
-      const goal = fileDb.findOne<any>('goals', (g) => g._id === id && g.userId === userId);
+      const goal = await fileDb.findOne<any>('goals', (g) => g._id === id && g.userId === userId);
       if (goal) {
-        return fileDb.update<any>('goals', id, updateData);
+        return await fileDb.update<any>('goals', id, updateData);
       }
       return null;
     }
@@ -157,7 +160,7 @@ export const ChatRepository = {
       const saved = await msg.save();
       return saved.toObject();
     } else {
-      return fileDb.insert<any>('chatMessages', data);
+      return await fileDb.insert<any>('chatMessages', data);
     }
   },
 
@@ -169,7 +172,7 @@ export const ChatRepository = {
         .lean()
         .then((msgs) => msgs.reverse());
     } else {
-      const msgs = fileDb.find<any>('chatMessages', (m) => m.userId === userId);
+      const msgs = await fileDb.find<any>('chatMessages', (m) => m.userId === userId);
       return msgs
         .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
         .slice(0, limit)
@@ -182,9 +185,9 @@ export const ChatRepository = {
       await ChatMessageModel.deleteMany({ userId: toId(userId) });
       return true;
     } else {
-      const data = fileDb.read();
+      const data = await fileDb.read();
       data.chatMessages = data.chatMessages.filter((m) => m.userId !== userId);
-      fileDb.write(data);
+      await fileDb.write(data);
       return true;
     }
   }
@@ -192,6 +195,6 @@ export const ChatRepository = {
 
 export const ChallengeRepository = {
   async listAll() {
-    return fileDb.find<any>('challenges');
+    return await fileDb.find<any>('challenges');
   }
 };

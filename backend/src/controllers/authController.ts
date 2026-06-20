@@ -5,12 +5,29 @@ import { UserRepository } from '../services/dbService';
 import { AuthenticatedRequest } from '../middleware/auth';
 import { z } from 'zod';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'supersecret_jwt_key_carbonwise_ai';
+const getJwtSecret = (): string => {
+  const secret = process.env.JWT_SECRET;
+  if (!secret) {
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('FATAL: JWT_SECRET environment variable must be set in production mode!');
+    }
+    console.warn('⚠️ WARNING: JWT_SECRET is not configured. Using development fallback key.');
+    return 'supersecret_jwt_key_carbonwise_ai';
+  }
+  return secret;
+};
+
+const JWT_SECRET = getJwtSecret();
 
 const registerSchema = z.object({
-  name: z.string().min(2),
-  email: z.string().email(),
-  password: z.string().min(6)
+  name: z.string().min(2, { message: 'Name must be at least 2 characters long' }),
+  email: z.string().email({ message: 'Invalid email address' }),
+  password: z.string()
+    .min(8, { message: 'Password must be at least 8 characters long' })
+    .regex(/[A-Z]/, { message: 'Password must contain at least one uppercase letter' })
+    .regex(/[a-z]/, { message: 'Password must contain at least one lowercase letter' })
+    .regex(/[0-9]/, { message: 'Password must contain at least one number' })
+    .regex(/[^A-Za-z0-9]/, { message: 'Password must contain at least one special character' })
 });
 
 const loginSchema = z.object({
@@ -26,7 +43,12 @@ const updateProfileSchema = z.object({
 
 const changePasswordSchema = z.object({
   currentPassword: z.string(),
-  newPassword: z.string().min(6)
+  newPassword: z.string()
+    .min(8, { message: 'New password must be at least 8 characters long' })
+    .regex(/[A-Z]/, { message: 'New password must contain at least one uppercase letter' })
+    .regex(/[a-z]/, { message: 'New password must contain at least one lowercase letter' })
+    .regex(/[0-9]/, { message: 'New password must contain at least one number' })
+    .regex(/[^A-Za-z0-9]/, { message: 'New password must contain at least one special character' })
 });
 
 export const authController = {

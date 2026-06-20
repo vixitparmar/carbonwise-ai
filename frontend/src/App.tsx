@@ -5,18 +5,18 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import DashboardLayout from './layouts/DashboardLayout';
 
-// Page components
-import Landing from './pages/Landing';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
-import Tracker from './pages/Tracker';
-import Coach from './pages/Coach';
-import Chatbot from './pages/Chatbot';
-import Scanner from './pages/Scanner';
-import Gamification from './pages/Gamification';
-import Analytics from './pages/Analytics';
-import Settings from './pages/Settings';
+// Page components using lazy loading for bundle optimization
+const Landing = React.lazy(() => import('./pages/Landing'));
+const Login = React.lazy(() => import('./pages/Login'));
+const Register = React.lazy(() => import('./pages/Register'));
+const Dashboard = React.lazy(() => import('./pages/Dashboard'));
+const Tracker = React.lazy(() => import('./pages/Tracker'));
+const Coach = React.lazy(() => import('./pages/Coach'));
+const Chatbot = React.lazy(() => import('./pages/Chatbot'));
+const Scanner = React.lazy(() => import('./pages/Scanner'));
+const Gamification = React.lazy(() => import('./pages/Gamification'));
+const Analytics = React.lazy(() => import('./pages/Analytics'));
+const Settings = React.lazy(() => import('./pages/Settings'));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -67,25 +67,34 @@ export const App: React.FC = () => {
       <ThemeProvider>
         <AuthProvider>
           <Router>
-            <Routes>
-              {/* Public routes */}
-              <Route path="/" element={<PublicRoute><Landing /></PublicRoute>} />
-              <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
-              <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
+            <React.Suspense fallback={
+              <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
+                <div className="flex flex-col items-center gap-3">
+                  <div className="h-8 w-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                  <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider animate-pulse">Loading CarbonWise...</p>
+                </div>
+              </div>
+            }>
+              <Routes>
+                {/* Public routes */}
+                <Route path="/" element={<PublicRoute><Landing /></PublicRoute>} />
+                <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+                <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
 
-              {/* Protected dashboard routes */}
-              <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-              <Route path="/tracker" element={<ProtectedRoute><Tracker /></ProtectedRoute>} />
-              <Route path="/coach" element={<ProtectedRoute><Coach /></ProtectedRoute>} />
-              <Route path="/chatbot" element={<ProtectedRoute><Chatbot /></ProtectedRoute>} />
-              <Route path="/scanner" element={<ProtectedRoute><Scanner /></ProtectedRoute>} />
-              <Route path="/gamification" element={<ProtectedRoute><Gamification /></ProtectedRoute>} />
-              <Route path="/analytics" element={<ProtectedRoute><Analytics /></ProtectedRoute>} />
-              <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+                {/* Protected dashboard routes */}
+                <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                <Route path="/tracker" element={<ProtectedRoute><Tracker /></ProtectedRoute>} />
+                <Route path="/coach" element={<ProtectedRoute><Coach /></ProtectedRoute>} />
+                <Route path="/chatbot" element={<ProtectedRoute><Chatbot /></ProtectedRoute>} />
+                <Route path="/scanner" element={<ProtectedRoute><Scanner /></ProtectedRoute>} />
+                <Route path="/gamification" element={<ProtectedRoute><Gamification /></ProtectedRoute>} />
+                <Route path="/analytics" element={<ProtectedRoute><Analytics /></ProtectedRoute>} />
+                <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
 
-              {/* Catch all */}
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
+                {/* Catch all */}
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </React.Suspense>
           </Router>
         </AuthProvider>
       </ThemeProvider>

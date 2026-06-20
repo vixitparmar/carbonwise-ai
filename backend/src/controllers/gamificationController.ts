@@ -76,16 +76,16 @@ export const gamificationController = {
           .limit(20)
           .lean();
       } else {
-        const data = fileDb.read();
+        const data = await fileDb.read();
         usersList = (data.users || [])
-          .map((u) => ({
+          .map((u: any) => ({
             _id: u._id,
             name: u.name,
             greenCoins: u.greenCoins || 0,
             streak: u.streak || 0,
             badges: u.badges || []
           }))
-          .sort((a, b) => b.greenCoins - a.greenCoins)
+          .sort((a: any, b: any) => b.greenCoins - a.greenCoins)
           .slice(0, 20);
       }
 

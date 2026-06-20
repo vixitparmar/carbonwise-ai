@@ -75,28 +75,29 @@ function initDb() {
 initDb();
 
 export const fileDb = {
-  read(): LocalDbSchema {
+  async read(): Promise<LocalDbSchema> {
     try {
       if (!fs.existsSync(DB_FILE)) {
         initDb();
       }
-      return JSON.parse(fs.readFileSync(DB_FILE, 'utf-8'));
+      const content = await fs.promises.readFile(DB_FILE, 'utf-8');
+      return JSON.parse(content);
     } catch (error) {
       console.error('Error reading file db:', error);
       return defaultDb;
     }
   },
 
-  write(data: LocalDbSchema): void {
+  async write(data: LocalDbSchema): Promise<void> {
     try {
-      fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), 'utf-8');
+      await fs.promises.writeFile(DB_FILE, JSON.stringify(data, null, 2), 'utf-8');
     } catch (error) {
       console.error('Error writing file db:', error);
     }
   },
 
-  find<T>(collection: keyof LocalDbSchema, queryFn?: (item: T) => boolean): T[] {
-    const data = this.read();
+  async find<T>(collection: keyof LocalDbSchema, queryFn?: (item: T) => boolean): Promise<T[]> {
+    const data = await this.read();
     const items = (data[collection] || []) as T[];
     if (queryFn) {
       return items.filter(queryFn);
@@ -104,14 +105,14 @@ export const fileDb = {
     return items;
   },
 
-  findOne<T>(collection: keyof LocalDbSchema, queryFn: (item: T) => boolean): T | null {
-    const data = this.read();
+  async findOne<T>(collection: keyof LocalDbSchema, queryFn: (item: T) => boolean): Promise<T | null> {
+    const data = await this.read();
     const items = (data[collection] || []) as T[];
     return items.find(queryFn) || null;
   },
 
-  insert<T>(collection: keyof LocalDbSchema, item: Omit<T, '_id' | 'id'>): T {
-    const data = this.read();
+  async insert<T>(collection: keyof LocalDbSchema, item: Omit<T, '_id' | 'id'>): Promise<T> {
+    const data = await this.read();
     const newId = collection.substring(0, 3) + '_' + Math.random().toString(36).substr(2, 9);
     const newItem = {
       ...item,
@@ -124,16 +125,16 @@ export const fileDb = {
       data[collection] = [];
     }
     data[collection].push(newItem);
-    this.write(data);
+    await this.write(data);
     return newItem;
   },
 
-  update<T extends { _id: string }>(
+  async update<T extends { _id: string }>(
     collection: keyof LocalDbSchema,
     id: string,
     updates: Partial<T>
-  ): T | null {
-    const data = this.read();
+  ): Promise<T | null> {
+    const data = await this.read();
     const items = data[collection] || [];
     const index = items.findIndex((item: any) => item._id === id);
     if (index === -1) return null;
@@ -145,19 +146,19 @@ export const fileDb = {
     };
     items[index] = updatedItem;
     data[collection] = items;
-    this.write(data);
+    await this.write(data);
     return updatedItem;
   },
 
-  delete(collection: keyof LocalDbSchema, id: string): boolean {
-    const data = this.read();
+  async delete(collection: keyof LocalDbSchema, id: string): Promise<boolean> {
+    const data = await this.read();
     const items = data[collection] || [];
     const index = items.findIndex((item: any) => item._id === id);
     if (index === -1) return false;
 
     items.splice(index, 1);
     data[collection] = items;
-    this.write(data);
+    await this.write(data);
     return true;
   }
 };

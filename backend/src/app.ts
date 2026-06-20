@@ -20,8 +20,17 @@ const PORT = process.env.PORT || 5000;
 
 // Security Middlewares
 app.use(helmet());
+
+const allowedOrigins = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : ['http://localhost:5173', 'http://localhost:3000'];
 app.use(cors({
-  origin: '*', // for simplicity in development, restrict in production
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps, curl, or postman)
+    if (!origin) return callback(null, true);
+    if (process.env.NODE_ENV !== 'production' || allowedOrigins.indexOf(origin) !== -1 || allowedOrigins.includes('*')) {
+      return callback(null, true);
+    }
+    return callback(new Error('CORS policy violation: origin not allowed.'));
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -29,13 +38,23 @@ app.use(cors({
 // Request logger
 app.use(morgan('dev'));
 
-// Rate limiting
+// General Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 200, // Limit each IP to 200 requests per window
   message: { error: 'Too many requests from this IP, please try again after 15 minutes.' }
 });
+
+// Stricter rate limit for auth routes to prevent brute-force attacks
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 20, // Limit each IP to 20 auth attempts per window
+  message: { error: 'Too many authentication attempts. Please try again after 15 minutes.' }
+});
+
 app.use('/api/', limiter);
+app.use('/api/auth/login', authLimiter);
+app.use('/api/auth/register', authLimiter);
 
 // Built-in body parser
 app.use(express.json());

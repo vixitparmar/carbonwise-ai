@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1781957023517" clover="3.2.0">
+  <project timestamp="1781957023517" name="All files">
+    <metrics statements="127" coveredstatements="115" conditionals="78" coveredconditionals="65" methods="19" coveredmethods="16" elements="224" coveredelements="196" complexity="0" loc="127" ncloc="127" packages="2" files="3" classes="3"/>
+    <package name="contexts">
+      <metrics statements="82" coveredstatements="72" conditionals="21" coveredconditionals="16" methods="18" coveredmethods="15"/>
+      <file name="AuthContext.tsx" path="/home/yagnesh/Desktop/All Projects Of WOGOM/PromptWars/CarbonFootprint/frontend/src/contexts/AuthContext.tsx">
+        <metrics statements="63" coveredstatements="53" conditionals="13" coveredconditionals="8" methods="12" coveredmethods="9"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="28" count="15" type="stmt"/>
+        <line num="29" count="15" type="stmt"/>
+        <line num="30" count="15" type="stmt"/>
+        <line num="32" count="15" type="stmt"/>
+        <line num="33" count="3" type="stmt"/>
+        <line num="34" count="3" type="stmt"/>
+        <line num="35" count="3" type="stmt"/>
+        <line num="36" count="3" type="stmt"/>
+        <line num="39" count="15" type="stmt"/>
+        <line num="40" count="4" type="stmt"/>
+        <line num="41" count="4" type="stmt"/>
+        <line num="42" count="4" type="stmt"/>
+        <line num="43" count="4" type="stmt"/>
+        <line num="46" count="15" type="stmt"/>
+        <line num="47" count="5" type="stmt"/>
+        <line num="48" count="5" type="stmt"/>
+        <line num="49" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="51" count="5" type="stmt"/>
+        <line num="52" count="5" type="stmt"/>
+        <line num="53" count="4" type="stmt"/>
+        <line num="55" count="1" type="stmt"/>
+        <line num="58" count="5" type="stmt"/>
+        <line num="59" count="5" type="stmt"/>
+        <line num="61" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="62" count="4" type="cond" truecount="2" falsecount="3"/>
+        <line num="63" count="0" type="stmt"/>
+        <line num="64" count="0" type="stmt"/>
+        <line num="66" count="0" type="stmt"/>
+        <line num="68" count="0" type="stmt"/>
+        <line num="69" count="0" type="stmt"/>
+        <line num="70" count="0" type="stmt"/>
+        <line num="73" count="0" type="stmt"/>
+        <line num="76" count="0" type="stmt"/>
+        <line num="79" count="4" type="stmt"/>
+        <line num="80" count="4" type="stmt"/>
+        <line num="83" count="1" type="stmt"/>
+        <line num="92" count="1" type="stmt"/>
+        <line num="93" count="1" type="stmt"/>
+        <line num="94" count="1" type="stmt"/>
+        <line num="95" count="1" type="stmt"/>
+        <line num="96" count="1" type="stmt"/>
+        <line num="100" count="5" type="stmt"/>
+        <line num="103" count="15" type="stmt"/>
+        <line num="104" count="1" type="stmt"/>
+        <line num="105" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="106" count="1" type="stmt"/>
+        <line num="107" count="1" type="stmt"/>
+        <line num="108" count="1" type="stmt"/>
+        <line num="112" count="15" type="stmt"/>
+        <line num="113" count="1" type="stmt"/>
+        <line num="114" count="1" type="stmt"/>
+        <line num="115" count="1" type="stmt"/>
+        <line num="116" count="1" type="stmt"/>
+        <line num="117" count="1" type="stmt"/>
+        <line num="119" count="0" type="stmt"/>
+        <line num="123" count="15" type="stmt"/>
+        <line num="130" count="1" type="stmt"/>
+        <line num="131" count="15" type="stmt"/>
+        <line num="132" count="15" type="cond" truecount="1" falsecount="1"/>
+        <line num="133" count="0" type="stmt"/>
+        <line num="135" count="15" type="stmt"/>
+      </file>
+      <file name="ThemeContext.tsx" path="/home/yagnesh/Desktop/All Projects Of WOGOM/PromptWars/CarbonFootprint/frontend/src/contexts/ThemeContext.tsx">
+        <metrics statements="19" coveredstatements="19" conditionals="8" coveredconditionals="8" methods="6" coveredmethods="6"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="5" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
+        <line num="15" count="3" type="cond" truecount="4" falsecount="0"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="19" count="5" type="stmt"/>
+        <line num="20" count="5" type="stmt"/>
+        <line num="21" count="5" type="stmt"/>
+        <line num="22" count="5" type="stmt"/>
+        <line num="23" count="5" type="stmt"/>
+        <line num="26" count="5" type="stmt"/>
+        <line num="27" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="30" count="5" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="38" count="8" type="stmt"/>
+        <line num="39" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="40" count="2" type="stmt"/>
+        <line num="42" count="5" type="stmt"/>
+      </file>
+    </package>
+    <package name="utils">
+      <metrics statements="45" coveredstatements="43" conditionals="57" coveredconditionals="49" methods="1" coveredmethods="1"/>
+      <file name="carbonCalculator.ts" path="/home/yagnesh/Desktop/All Projects Of WOGOM/PromptWars/CarbonFootprint/frontend/src/utils/carbonCalculator.ts">
+        <metrics statements="45" coveredstatements="43" conditionals="57" coveredconditionals="49" methods="1" coveredmethods="1"/>
+        <line num="8" count="32" type="cond" truecount="1" falsecount="0"/>
+        <line num="10" count="32" type="cond" truecount="2" falsecount="0"/>
+        <line num="12" count="30" type="cond" truecount="11" falsecount="0"/>
+        <line num="14" count="6" type="cond" truecount="1" falsecount="1"/>
+        <line num="15" count="6" type="cond" truecount="6" falsecount="0"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="31" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="32" count="4" type="cond" truecount="4" falsecount="0"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="37" count="2" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
+        <line num="44" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="45" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="53" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="54" count="3" type="cond" truecount="5" falsecount="0"/>
+        <line num="55" count="2" type="stmt"/>
+        <line num="57" count="1" type="stmt"/>
+        <line num="61" count="1" type="stmt"/>
+        <line num="65" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="66" count="4" type="cond" truecount="4" falsecount="1"/>
+        <line num="68" count="1" type="stmt"/>
+        <line num="70" count="1" type="stmt"/>
+        <line num="72" count="0" type="stmt"/>
+        <line num="74" count="1" type="stmt"/>
+        <line num="76" count="1" type="stmt"/>
+        <line num="80" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="81" count="4" type="cond" truecount="4" falsecount="1"/>
+        <line num="83" count="1" type="stmt"/>
+        <line num="85" count="1" type="stmt"/>
+        <line num="87" count="1" type="stmt"/>
+        <line num="89" count="0" type="stmt"/>
+        <line num="91" count="1" type="stmt"/>
+        <line num="96" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="97" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="98" count="2" type="stmt"/>
+        <line num="100" count="1" type="stmt"/>
+        <line num="104" count="2" type="stmt"/>
+        <line num="106" count="1" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>

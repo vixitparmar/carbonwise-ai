@@ -1,7 +1,19 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'supersecret_jwt_key_carbonwise_ai';
+const getJwtSecret = (): string => {
+  const secret = process.env.JWT_SECRET;
+  if (!secret) {
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('FATAL: JWT_SECRET environment variable must be set in production mode!');
+    }
+    console.warn('⚠️ WARNING: JWT_SECRET is not configured. Using development fallback key.');
+    return 'supersecret_jwt_key_carbonwise_ai';
+  }
+  return secret;
+};
+
+const JWT_SECRET = getJwtSecret();
 
 export interface AuthenticatedRequest extends Request {
   userId?: string;
